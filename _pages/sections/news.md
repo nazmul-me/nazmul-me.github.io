@@ -1,5 +1,5 @@
 # 🔥 News
-<div class="news-scroll" style="max-height: 300px; overflow-y: scroll; border: 1px solid #ddd; padding: 15px; border-radius: 5px; -webkit-overflow-scrolling: touch;">
+<div class="news-scroll" style="max-height: 30vh; overflow-y: scroll; border: 1px solid #ddd; padding: 15px; border-radius: 5px; -webkit-overflow-scrolling: touch;">
 <ul style="list-style-type: none; padding-left: 0; margin: 0;">
 
 <li style="margin-bottom: 20px;">
