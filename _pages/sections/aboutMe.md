@@ -1,4 +1,5 @@
 <span class='anchor' id='about-me'></span>
+# About Me
 
 I am a Ph.D. student in the [Department of Computer Science](https://csc.ncsu.edu/) at [North Carolina State University](https://ncsu.edu/), advised by [Laurie Williams](https://lauriew.github.io/) in the [RealSearch Lab](https://realsearchgroup.github.io/). Before that, I have recieved my B.Sc and M.Sc in Software Engineering from the [Institute of Information Technology (IIT)](https://iit.du.ac.bd/), [University of Dhaka](https://du.ac.bd/), supervised by [Dr. Mohammad Shoyaib](https://iit.du.ac.bd/about_iit/individual_teacher/48). My research focuses on the intersection of Software Security and Machine Learning (ML), specifically software supply chain security, AI security, and privacy.
 

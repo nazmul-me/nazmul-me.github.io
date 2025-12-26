@@ -1,5 +1,5 @@
 
-# 💼 Experience
+# Experience
 
 ### Industry
 - **Software Engineer**, [Samsung R&D Institute Bangladesh](https://research.samsung.com/srbd) — Dhaka, Bangladesh *(Apr. 2018– Jan. 2019)*  
