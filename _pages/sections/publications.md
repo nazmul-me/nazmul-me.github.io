@@ -169,7 +169,7 @@
 
 <div class="pub-item journal">
 <span class="pub-badge journal">3</span> <span class="pub-venue journal">IJCVSP 2024</span> <a href="#" target="_blank">The Integrity of Source Code Commenting: Benchmark Dataset and Empirical Analysis</a>. Maksuda Islam, Md Safayat Hossen, Ahsanul Haque, <strong><u>Md Nazmul Haque</u></strong>, Lutfun Nahar Lota. <i>International Journal of Computer Vision and Signal Processing.</i>
-<div class="pub-links"></div>
+<div class="pub-links"><a target="_blank" class="pub-link pdf" href="https://cennser.org/IJCVSP/finalPaper/140110.pdf" title="PDF">PDF</a><a target="_blank" class="pub-link doi" href="https://cennser.org/IJCVSP/finalPaper/140110.pdf" title="DOI">DOI</a></div>
 </div>
 
 <div class="pub-item journal">
