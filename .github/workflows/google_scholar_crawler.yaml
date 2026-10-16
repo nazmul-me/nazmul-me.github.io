@@ -1,15 +1,24 @@
 name: Get Citation Data
 
-on: 
- page_build: 
+on:
+ page_build:
+ workflow_dispatch:
  schedule:
-  - cron:  '0 8 * * *'
+  - cron:  '0 */6 * * *'
+
+# A newer run replaces one that is still waiting on Google Scholar
+concurrency:
+  group: citation-data
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Successful runs take ~30s; when Google Scholar blocks the runner,
+    # scholarly retries forever, so stop it instead of waiting 6 hours
+    timeout-minutes: 10
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Install Reqs
       run: |
         sudo apt-get install python3-setuptools
