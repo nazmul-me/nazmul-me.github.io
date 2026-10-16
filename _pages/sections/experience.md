@@ -1,6 +1,11 @@
 
 # Experience
 
+### Research
+- **Research Intern**, [Laboratory for Analytic Sciences](https://ncsu-las.org/) — Raleigh, USA *(May 2026–Aug. 2026)*  
+	Built an automated pipeline that identifies the top 10 security controls against software supply chain attacks from cyber threat intelligence reports. Mapped adversarial actions to MITRE ATT&CK techniques and security controls, then ranked controls by campaign frequency, technique coverage, and severity.  
+	Tools: Python; LLMs; MITRE ATT&CK; P-SSCRM; NIST SP 800-53.
+
 ### Industry
 - **Software Engineer**, [Samsung R&D Institute Bangladesh](https://research.samsung.com/srbd) — Dhaka, Bangladesh *(Apr. 2018– Jan. 2019)*  
 	Angular + Spring internal platform; delivered with formal SRS.

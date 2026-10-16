@@ -3,6 +3,10 @@
 <ul style="list-style-type: none; padding-left: 0; margin: 0;">
 
 <li style="margin-bottom: 20px;">
+<em>[May 2026]</em>: &nbsp; Started a summer research internship at the <a href="https://ncsu-las.org/">Laboratory for Analytic Sciences (LAS)</a>, NC State.
+</li>
+
+<li style="margin-bottom: 20px;">
 <em>[Dec. 2025]</em>: &nbsp; Our another paper titled <a href="https://arxiv.org/pdf/2512.15468"><em>How Do Semantically Equivalent Code Transformations Impact Membership Inference on LLMs for Code?</em></a> has been accepted to the Research Track of the International Conference on Software Engineering (<a href="https://conf.researchr.org/track/icse-2026/icse-2026-research-track">ICSE 2026</a>).
 </li>
 
