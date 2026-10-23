@@ -1,4 +1,5 @@
-from scholarly import scholarly, ProxyGenerator
+from scholarly import scholarly
+from scholarly._navigator import Navigator
 from contextlib import contextmanager
 import jsonpickle
 import json
@@ -12,11 +13,14 @@ google_scholar_id = os.environ['GOOGLE_SCHOLAR_ID']
 scraper_api_key = os.environ.get('SCRAPER_API_KEY')
 
 # Google Scholar blocks most GitHub runners, so ScraperAPI is the fallback.
-# A run through it costs 50 credits (2 requests x 25) and the free plan has
-# 1,000 a month, so only use it once the published data is a day old.
+# A run through it costs 25 credits (one Google request) and the free plan
+# has 1,000 a month, so only use it once the published data is a day old.
 proxy_after_hours = 24
-direct_time_limit = 120
-proxy_time_limit = 240
+direct_time_limit = 90
+proxy_time_limit = 300
+# ScraperAPI keeps retrying Google for up to 70s before answering
+scraperapi_timeout = 90
+scraperapi_attempts = 3
 
 
 class AttemptTimeout(BaseException):
@@ -44,6 +48,32 @@ def fetch_author():
     author: dict = scholarly.search_author_id(google_scholar_id)
     scholarly.fill(author, sections=['basics', 'indices', 'counts', 'publications'])
     return author
+
+
+scraperapi_pages = {}
+
+
+def get_page_via_scraperapi(pagerequest, premium=False):
+    # Replaces scholarly's own fetching, which gives ScraperAPI only 60s.
+    # scholarly asks for the profile page twice, so reuse the first response.
+    if pagerequest in scraperapi_pages:
+        return scraperapi_pages[pagerequest]
+    for attempt in range(1, scraperapi_attempts + 1):
+        try:
+            resp = requests.get('https://api.scraperapi.com/',
+                                params={'api_key': scraper_api_key, 'url': pagerequest},
+                                timeout=scraperapi_timeout)
+        except requests.RequestException as e:
+            # Only the type: the message can include the request URL with the key
+            print(f"ScraperAPI attempt {attempt}: {type(e).__name__}", file=sys.stderr)
+            continue
+        print(f"ScraperAPI attempt {attempt}: HTTP {resp.status_code}", file=sys.stderr)
+        if resp.status_code == 200:
+            scraperapi_pages[pagerequest] = resp.text
+            return resp.text
+        if resp.status_code in (401, 403):
+            raise RuntimeError("ScraperAPI rejected the key or the credits are used up")
+    raise RuntimeError(f"ScraperAPI failed {scraperapi_attempts} times")
 
 
 def hours_since_last_update():
@@ -98,14 +128,8 @@ if not scraper_api_key:
 try:
     print("Retrying through ScraperAPI...", file=sys.stderr)
     with time_limit(proxy_time_limit):
-        pg = ProxyGenerator()
-        if not pg.ScraperAPI(scraper_api_key):
-            raise RuntimeError("ScraperAPI setup failed (invalid key or no credits left)")
-        # Without a secondary generator, scholarly sends profile pages
-        # through random free proxies instead of ScraperAPI
-        scholarly.use_proxy(pg, pg)
-        # Every Google request costs credits, so keep scholarly's retries low
-        scholarly.set_retries(1)
+        # Every scholarly page request goes through this one shared Navigator
+        Navigator()._get_page = get_page_via_scraperapi
         save(fetch_author())
 except (Exception, AttemptTimeout) as e:
     print(f"ScraperAPI request failed ({type(e).__name__}: {e})", file=sys.stderr)
