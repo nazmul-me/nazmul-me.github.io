@@ -27,6 +27,10 @@ jobs:
         cd ./google_scholar_crawler
         pip3 install -r requirements.txt
         python3 main.py
+        if [ ! -f results/gs_data.json ]; then
+          echo "Google Scholar blocked this run, but the published data is recent; nothing to push"
+          exit 0
+        fi
         cd ./results
         git init
         git config --local user.name "${GITHUB_ACTOR}"
@@ -36,3 +40,4 @@ jobs:
         git push "${remote_repo}" HEAD:google-scholar-stats --force
       env: 
         GOOGLE_SCHOLAR_ID: ${{ secrets.GOOGLE_SCHOLAR_ID }}
+        SCRAPER_API_KEY: ${{ secrets.SCRAPER_API_KEY }}
